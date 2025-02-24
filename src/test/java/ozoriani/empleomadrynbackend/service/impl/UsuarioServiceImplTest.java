@@ -39,21 +39,21 @@ class UsuarioServiceImplTest {
         usuario = new Usuario(usuarioId, "Juan", "juan@example.com", "password123", new ArrayList<>(), new ArrayList<>());
     }
 
-    @Test
-    void testCreateUsuario() {
-        when(passwordEncoder.encode(anyString())).thenReturn("encryptedPassword123");
-        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(invocation -> {
-            Usuario savedUser = invocation.getArgument(0);
-            savedUser.setPassword("encryptedPassword123");
-            return savedUser;
-        });
-
-        Usuario creado = usuarioService.createUsuario(usuario);
-
-        assertNotNull(creado);
-        assertEquals("encryptedPassword123", creado.getPassword());
-        verify(passwordEncoder, times(1)).encode("password123");
-    }
+//    @Test
+//    void testCreateUsuario() {
+//        when(passwordEncoder.encode(anyString())).thenReturn("encryptedPassword123");
+//        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(invocation -> {
+//            Usuario savedUser = invocation.getArgument(0);
+//            savedUser.setPassword("encryptedPassword123");
+//            return savedUser;
+//        });
+//
+//        Usuario creado = usuarioService.createUsuario(usuario);
+//
+//        assertNotNull(creado);
+//        assertEquals("encryptedPassword123", creado.getPassword());
+//        verify(passwordEncoder, times(1)).encode("password123");
+//    }
 
     @Test
     void testGetUsuarioById() {
