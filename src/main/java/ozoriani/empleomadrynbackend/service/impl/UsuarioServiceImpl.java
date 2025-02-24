@@ -1,5 +1,6 @@
 package ozoriani.empleomadrynbackend.service.impl;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ozoriani.empleomadrynbackend.errors.exception.InvalidOperationException;
 import ozoriani.empleomadrynbackend.errors.exception.ResourceNotFoundException;
@@ -15,9 +16,11 @@ import java.util.UUID;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -26,6 +29,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new InvalidOperationException("Usuario cannot be null");
         if (usuario.getEmail() == null || usuario.getEmail().isEmpty())
             throw new InvalidOperationException("Usuario name cannot be null or empty");
+
+        usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
 
         return usuarioRepository.save(usuario);
     }
