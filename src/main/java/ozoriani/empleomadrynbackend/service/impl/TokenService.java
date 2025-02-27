@@ -1,4 +1,4 @@
-package ozoriani.empleomadrynbackend.service;
+package ozoriani.empleomadrynbackend.service.impl;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

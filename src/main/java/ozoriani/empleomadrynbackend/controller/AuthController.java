@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ozoriani.empleomadrynbackend.service.TokenService;
+import ozoriani.empleomadrynbackend.service.impl.TokenService;
 
 @RestController
 public class AuthController {
@@ -20,10 +20,9 @@ public class AuthController {
 
     @PostMapping("/token")
     public String token(Authentication authentication) {
-        Log.debug("Generating token for user: '{}'", authentication.getName());
+        Log.debug("Generating basic token for user: '{}'", authentication.getName());
         String token = tokenService.generateToken(authentication);
-        Log.debug("Token granted: {}", token);
+        Log.debug("Basic token granted: {}", token);
         return token;
     }
-
 }
